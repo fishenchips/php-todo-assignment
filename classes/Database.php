@@ -81,4 +81,17 @@ class Database
 
         return $todo;
     }
+
+    public function update_todo(Todo $todo)
+    {
+        $query = "UPDATE todos SET title = ?, `date` = ? WHERE id = ?";
+
+        $stmt = mysqli_prepare($this->conn, $query);
+
+        $stmt->bind_param("ssi", $todo->title, $todo->date, $todo->id);
+
+        $success = $stmt->execute();
+
+        return $success;
+    }
 }
