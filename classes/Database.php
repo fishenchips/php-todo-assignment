@@ -1,6 +1,8 @@
 <?php
 
 require_once __DIR__ . "/Todo.php";
+require_once __DIR__ . "/User.php";
+
 
 class Database
 {
@@ -102,6 +104,20 @@ class Database
         $stmt = mysqli_prepare($this->conn, $query);
 
         $stmt->bind_param("i", $id);
+
+        $success = $stmt->execute();
+
+        return $success;
+    }
+
+    public function register_user(User $user)
+    {
+        $query = "INSERT INTO users (username, passwordHash) VALUES (?, ?)";
+
+        $stmt = mysqli_prepare($this->conn, $query);
+
+        //We use get_password_hash() function for password because it returns our hashed password instead of what we entered
+        $stmt->bind_param("ss", $user->username, $user->get_password_hash());
 
         $success = $stmt->execute();
 
