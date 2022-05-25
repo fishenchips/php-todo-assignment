@@ -24,7 +24,7 @@ var_dump($todos);
 </head>
 
 <body>
-    <h1>Todos</h1>
+    <h1>Stop Slacking - These are your Todos</h1>
 
     <nav>
         <a href="/todo-assignment/pages/create-task.php">Create task</a>

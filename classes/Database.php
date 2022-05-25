@@ -94,4 +94,17 @@ class Database
 
         return $success;
     }
+
+    public function delete_todo($id)
+    {
+        $query = "DELETE FROM todos WHERE id = ?";
+
+        $stmt = mysqli_prepare($this->conn, $query);
+
+        $stmt->bind_param("i", $id);
+
+        $success = $stmt->execute();
+
+        return $success;
+    }
 }

@@ -32,6 +32,12 @@ $todo = $db->get_task_by_id($id);
         <?= $todo ?>
     </p>
 
+
+    <form action="/todo-assignment/scripts/delete-task.php" method="POST">
+        <input type="hidden" name="id" value="<?= $id ?>">
+        <input type="submit" value="Delete todo">
+    </form>
+
 </body>
 
 </html>
