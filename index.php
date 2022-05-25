@@ -1,6 +1,8 @@
 <?php
 //http://localhost/todo-assignment/
 require_once __DIR__ . "/classes/Database.php";
+require_once __DIR__ . "/classes/Todo.php";
+
 
 $db = new Database;
 
@@ -20,8 +22,12 @@ $db = new Database;
 <body>
     <h1>Todos</h1>
 
+    <nav>
+        <a href="/todo-assignment/pages/create-task.php">Create task</a>
+    </nav>
+
     <?php
-    var_dump($db);
+
     ?>
 </body>
 

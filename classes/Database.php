@@ -19,4 +19,18 @@ class Database
             die("Connection failed");
         }
     }
+
+    public function add_task(Todo $todo)
+    {
+        $query = "INSERT INTO todos (title, `date`) VALUES (?, ?)";
+
+        $stmt = mysqli_prepare($this->conn, $query);
+
+        //try to keep date as a string
+        $stmt->bind_param("ss", $todo->title, $todo->date);
+
+        $success = $stmt->execute();
+
+        return $success;
+    }
 }
