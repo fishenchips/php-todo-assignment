@@ -17,6 +17,6 @@ class Todo
 
     public function __toString()
     {
-        return "{$this->title} to be done: {$this->date}";
+        return "<b>{$this->title}</b> to be done: {$this->date}";
     }
 }

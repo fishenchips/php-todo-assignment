@@ -58,4 +58,27 @@ class Database
 
         return $todos;
     }
+
+    public function get_task_by_id($id)
+    {
+        $query = "SELECT * FROM todos WHERE id = ?";
+
+        $stmt = mysqli_prepare($this->conn, $query);
+
+        $stmt->bind_param("i", $id);
+
+        $stmt->execute();
+
+        $result = $stmt->get_result();
+
+        $db_todo = mysqli_fetch_assoc($result);
+
+        $todo = null;
+
+        if ($db_todo) {
+            $todo = new Todo($db_todo["title"], $db_todo["date"], $id);
+        }
+
+        return $todo;
+    }
 }

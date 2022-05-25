@@ -34,7 +34,9 @@ var_dump($todos);
 
     <?php foreach ($todos as $todo) : ?>
         <p>
-            <?= $todo ?>
+            <a href="/todo-assignment/pages/show-task.php?id=<?= $todo->id ?>">
+                <?= $todo ?>
+            </a>
         </p>
     <?php endforeach ?>
 
