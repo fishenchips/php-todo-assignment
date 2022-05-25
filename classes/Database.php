@@ -33,4 +33,29 @@ class Database
 
         return $success;
     }
+
+    public function get_tasks()
+    {
+        $query = "SELECT * FROM todos";
+
+        $result = mysqli_query($this->conn, $query);
+
+        //make result into associative array
+        $db_todos = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+        $todos = [];
+
+        foreach ($db_todos as $db_todo) {
+            //since its an associative array we reach properties thru [""]
+            $title = $db_todo["title"];
+            $date = $db_todo["date"];
+
+            $id = $db_todo["id"];
+
+            //need to add to the array so dont forget []
+            $todos[] = new Todo($title, $date, $id);
+        }
+
+        return $todos;
+    }
 }

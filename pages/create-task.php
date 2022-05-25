@@ -12,6 +12,10 @@
 <body>
     <h1>Create Task</h1>
 
+    <nav>
+        <a href="/todo-assignment">Home</a>
+    </nav>
+
     <form action="/todo-assignment/scripts/post-task.php" method="POST">
         <input type="text" name="task" placeholder="Enter task">
         <input type="date" name="date" placeholder="Enter date">

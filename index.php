@@ -4,7 +4,11 @@ require_once __DIR__ . "/classes/Database.php";
 require_once __DIR__ . "/classes/Todo.php";
 
 
-$db = new Database;
+$db = new Database();
+
+$todos = $db->get_tasks();
+
+var_dump($todos);
 
 ?>
 
@@ -26,9 +30,14 @@ $db = new Database;
         <a href="/todo-assignment/pages/create-task.php">Create task</a>
     </nav>
 
-    <?php
+    <hr>
 
-    ?>
+    <?php foreach ($todos as $todo) : ?>
+        <p>
+            <?= $todo ?>
+        </p>
+    <?php endforeach ?>
+
 </body>
 
 </html>
