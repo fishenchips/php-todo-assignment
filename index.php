@@ -30,12 +30,23 @@ var_dump($todos);
 </head>
 
 <body>
-    <h1>Stop Slacking - These are your Todos</h1>
+    <?php if ($is_logged_in) : ?>
+        <h1>Stop Slacking - These are your Todos</h1>
+
+    <?php else : ?>
+        <h1>Welcome to Todo.com - Keep track of your chores for a better life style!</h1>
+    <?php endif ?>
 
     <nav>
-        <a href="/todo-assignment/pages/register-user.php">Register</a>
-        <a href="/todo-assignment/pages/login.php">Login</a>
-        <a href="/todo-assignment/pages/create-task.php">Create task</a>
+        <?php if ($is_logged_in) : ?>
+            <a href="/todo-assignment/pages/create-task.php">Create task</a>
+
+        <?php else : ?>
+
+            <a href="/todo-assignment/pages/register-user.php">Register</a>
+            <a href="/todo-assignment/pages/login.php">Login</a>
+
+        <?php endif ?>
     </nav>
 
     <hr>
@@ -49,16 +60,21 @@ var_dump($todos);
             </b>
         </p>
 
+        <?php foreach ($todos as $todo) : ?>
+            <p>
+                <a href="/todo-assignment/pages/show-task.php?id=<?= $todo->id ?>">
+                    <?= $todo ?>
+                </a>
+            </p>
+        <?php endforeach ?>
+
+        <form action="/todo-assignment/scripts/post-logout.php" method="POST">
+            <input type="submit" value="Logout">
+        </form>
 
     <?php endif ?>
 
-    <?php foreach ($todos as $todo) : ?>
-        <p>
-            <a href="/todo-assignment/pages/show-task.php?id=<?= $todo->id ?>">
-                <?= $todo ?>
-            </a>
-        </p>
-    <?php endforeach ?>
+
 
 </body>
 
