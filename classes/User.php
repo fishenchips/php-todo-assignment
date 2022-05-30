@@ -27,4 +27,18 @@ class User
     {
         return $this->password_hash;
     }
+
+    //will be used in login function to set the hashed password 
+    public function set_password_hash($password_hash)
+    {
+        $this->password_hash = $password_hash;
+    }
+
+    public function test_password($password)
+    {
+        //will return true/false
+        $correct = password_verify($password, $this->password_hash);
+
+        return $correct;
+    }
 }

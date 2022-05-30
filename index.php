@@ -2,11 +2,17 @@
 //http://localhost/todo-assignment/
 require_once __DIR__ . "/classes/Database.php";
 require_once __DIR__ . "/classes/Todo.php";
+require_once __DIR__ . "/classes/User.php";
 
+session_start();
 
 $db = new Database();
 
 $todos = $db->get_tasks();
+
+$is_logged_in = (isset($_SESSION["logged_in"]) && $_SESSION["logged_in"]);
+
+var_dump($is_logged_in);
 
 var_dump($todos);
 
@@ -28,10 +34,23 @@ var_dump($todos);
 
     <nav>
         <a href="/todo-assignment/pages/register-user.php">Register</a>
+        <a href="/todo-assignment/pages/login.php">Login</a>
         <a href="/todo-assignment/pages/create-task.php">Create task</a>
     </nav>
 
     <hr>
+
+    <?php if ($is_logged_in) : ?>
+
+        <p>
+            Welcome back,
+            <b>
+                <?= $_SESSION["user"]->username ?>
+            </b>
+        </p>
+
+
+    <?php endif ?>
 
     <?php foreach ($todos as $todo) : ?>
         <p>

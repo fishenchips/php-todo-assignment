@@ -123,4 +123,31 @@ class Database
 
         return $success;
     }
+
+    public function get_user_by_username($username)
+    {
+        $query = "SELECT * FROM users WHERE username = ?";
+
+        $stmt = mysqli_prepare($this->conn, $query);
+
+        $stmt->bind_param("s", $username);
+
+        $stmt->execute();
+
+        $result = $stmt->get_result();
+
+        //make result into an associative array before using
+        $db_user = mysqli_fetch_assoc($result);
+
+        $user = null;
+        if ($db_user) {
+
+            $user = new User($username, $db_user["id"]);
+
+            //setting passwrod to whats in the DB
+            $user->set_password_hash($db_user["passwordHash"]);
+        }
+
+        return $user;
+    }
 }
