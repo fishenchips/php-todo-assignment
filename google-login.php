@@ -54,7 +54,7 @@ if (isset($_GET["code"])) {
         $_SESSION["logged_in"] = true;
         $_SESSION["user"] = $user;
 
-        header("Location: /library");
+        header("Location: /todo-assignment");
     }
 }
 ?>

@@ -170,4 +170,34 @@ class Database
 
         return $todos;
     }
+
+    public function get_google_user_id(User $user)
+    {
+        //1. Check if user exists (email will be the username)
+        $db_user = $this->get_user_by_username($user->username);
+
+        //2. If not, create new user (without password)
+        if ($db_user == null) {
+            $query = "INSERT INTO users (username) VALUES (?)";
+
+            $stmt = mysqli_prepare($this->conn, $query);
+
+            $stmt->bind_param("s", $user->username);
+
+            $success = $stmt->execute();
+
+            //if we create a new user, use built in function insert_id to generate an Id as well
+            if ($success) {
+                $user->id = $stmt->insert_id;
+            } else {
+                var_dump($stmt->error);
+                die("Error saving google user");
+            }
+        } else {
+            //if user already exists, save in user that will be returned
+            $user = $db_user;
+        }
+
+        return $user->id;
+    }
 }

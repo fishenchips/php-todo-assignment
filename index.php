@@ -4,7 +4,14 @@ require_once __DIR__ . "/classes/Database.php";
 require_once __DIR__ . "/classes/Todo.php";
 require_once __DIR__ . "/classes/User.php";
 
-session_start();
+//Include Google Configuration File
+require_once __DIR__ . "/google-config.php";
+
+
+$google_login_btn = '<a href="' . $google_client->createAuthUrl() . '">Login with Google</a>';
+
+
+//session_start(); --> NOT NEEDED ANYMORE BECAUSE its is included in google-config.php
 
 $db = new Database();
 
@@ -53,6 +60,7 @@ var_dump($all_todos);
 
             <a href="/todo-assignment/pages/register-user.php">Register</a>
             <a href="/todo-assignment/pages/login.php">Login</a>
+            <?= $google_login_btn ?>
 
         <?php endif ?>
     </nav>
