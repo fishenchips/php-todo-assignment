@@ -21,21 +21,22 @@ $todo = $db->get_task_by_id($id);
 </head>
 
 <body>
-    <h1>Edit task</h1>
+    <div class="header">
+        <h1>Edit task</h1>
 
-    <nav>
-        <a href="/todo-assignment">Home</a>
-        <a href="/todo-assignment/pages/show-task.php?id=<?= $id ?>">Go back to task: <?= $todo->title ?></a>
-    </nav>
+        <nav>
+            <a href="/todo-assignment">Home</a>
+            |
+            <a href="/todo-assignment/pages/show-task.php?id=<?= $id ?>">Back to task</a>
+        </nav>
+    </div>
 
-    <hr>
-
-    <form action="/todo-assignment/scripts/post-edit-task.php" method="POST">
-        <input type="text" name="title" placeholder="Edit task" value="<?= $todo->title ?>">
-        <input type="date" name="date" placeholder="edit date" value="<?= $todo->date ?>">
+    <form class="form" action="/todo-assignment/scripts/post-edit-task.php" method="POST">
+        <input class="input" type="text" name="title" placeholder="Edit task" value="<?= $todo->title ?>">
+        <input class="input" type="date" name="date" placeholder="edit date" value="<?= $todo->date ?>">
         <input type="hidden" name="userId" value="<?= $todo->user_id ?>">
         <input type="hidden" name="id" value="<?= $todo->id ?>">
-        <input type="submit" value="Edit task">
+        <input class="btn" type="submit" value="Edit task">
     </form>
 
 </body>

@@ -1,5 +1,4 @@
 <?php
-
 require_once __DIR__ . "/../classes/Database.php";
 
 //need to get the users as well
@@ -11,22 +10,17 @@ $is_logged_in = (isset($_SESSION["logged_in"]) && $_SESSION["logged_in"]);
 
 $user = $_SESSION["user"];
 
-var_dump($user);
-
 $db = new Database();
 
 $id = $_GET["id"];
 
 $todo = $db->get_task_by_id($id);
 
-var_dump($todo);
-
 // dont show anyone elses loan
 if (!$is_logged_in || $todo->user_id != $user->id) {
-    var_dump($todo);
+    //var_dump($todo);
     die("Not your todo");
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -41,21 +35,23 @@ if (!$is_logged_in || $todo->user_id != $user->id) {
 </head>
 
 <body>
+    <div class="header">
+        <h1>Single Task: <?= $todo->title ?></h1>
+        <nav>
+            <a href="/todo-assignment">Home</a>
+            |
+            <a href="/todo-assignment/pages/edit-task.php?id=<?= $id ?>">Edit task</a>
+        </nav>
+    </div>
 
-    <h1>Single Task: <?= $todo->title ?></h1>
-    <nav>
-        <a href="/todo-assignment">Home</a>
-        <a href="/todo-assignment/pages/edit-task.php?id=<?= $id ?>">Edit task</a>
-    </nav>
-
-    <p>
+    <p class="todo">
         <?= $todo ?>
     </p>
 
 
-    <form action="/todo-assignment/scripts/delete-task.php" method="POST">
+    <form class="form" action="/todo-assignment/scripts/delete-task.php" method="POST">
         <input type="hidden" name="id" value="<?= $id ?>">
-        <input type="submit" value="Delete todo">
+        <input class="btn" type="submit" value="Delete todo">
     </form>
 
 </body>

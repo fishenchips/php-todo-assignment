@@ -10,16 +10,18 @@
 </head>
 
 <body>
-    <h1>Create Task</h1>
+    <div class="header">
+        <h1>Create Task</h1>
 
-    <nav>
-        <a href="/todo-assignment">Home</a>
-    </nav>
+        <nav>
+            <a href="/todo-assignment">Home</a>
+        </nav>
+    </div>
 
-    <form action="/todo-assignment/scripts/post-task.php" method="POST">
-        <input type="text" name="task" placeholder="Enter task">
-        <input type="date" name="date" placeholder="Enter date">
-        <input type="submit" value="Add task">
+    <form class="form" action="/todo-assignment/scripts/post-task.php" method="POST">
+        <input class="input" type="text" name="task" placeholder="Enter task">
+        <input class="input" type="date" name="date" placeholder="Enter date">
+        <input class="btn" type="submit" value="Add task">
     </form>
 </body>
 

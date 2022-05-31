@@ -10,16 +10,17 @@
 </head>
 
 <body>
-    <h1>Register User</h1>
+    <div class="header">
+        <h1>Register User</h1>
 
-    <nav>
-        <a href="/todo-assignment">Home</a>
-    </nav>
-
-    <form action="/todo-assignment/scripts/post-register-user.php" method="POST">
-        <input type="text" name="username" placeholder="Enter a username">
-        <input type="password" name="password" placeholder="Enter a password">
-        <input type="submit" value="Register">
+        <nav>
+            <a href="/todo-assignment">Home</a>
+        </nav>
+    </div>
+    <form class="form" action="/todo-assignment/scripts/post-register-user.php" method="POST">
+        <input class="input" type="text" name="username" placeholder="Enter a username">
+        <input class="input" type="password" name="password" placeholder="Enter a password">
+        <input class="btn" type="submit" value="Register">
     </form>
 
 </body>
