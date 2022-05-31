@@ -28,7 +28,7 @@ class User
         return $this->password_hash;
     }
 
-    //will be used in login function to set the hashed password 
+    //will be used in login function to set the hashed password to whats in the DB
     public function set_password_hash($password_hash)
     {
         $this->password_hash = $password_hash;

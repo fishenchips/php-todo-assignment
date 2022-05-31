@@ -1,11 +1,31 @@
 <?php
+
 require_once __DIR__ . "/../classes/Database.php";
+
+//need to get the users as well
+require_once __DIR__ . "/../classes/User.php";
+
+session_start();
+
+$is_logged_in = (isset($_SESSION["logged_in"]) && $_SESSION["logged_in"]);
+
+$user = $_SESSION["user"];
+
+var_dump($user);
 
 $db = new Database();
 
 $id = $_GET["id"];
 
 $todo = $db->get_task_by_id($id);
+
+var_dump($todo);
+
+// dont show anyone elses loan
+if (!$is_logged_in || $todo->user_id != $user->id) {
+    var_dump($todo);
+    die("Not your todo");
+}
 
 ?>
 

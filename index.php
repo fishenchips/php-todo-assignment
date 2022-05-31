@@ -8,13 +8,25 @@ session_start();
 
 $db = new Database();
 
-$todos = $db->get_tasks();
-
 $is_logged_in = (isset($_SESSION["logged_in"]) && $_SESSION["logged_in"]);
+
+$user = $_SESSION["user"];
+
+
+//changing todos to todos by userId
+if ($is_logged_in) {
+    $user_todos = $db->get_tasks_by_user_id($user->id);
+    var_dump($user_todos);
+}
+
+$all_todos = $db->get_tasks();
+
+var_dump($user);
 
 var_dump($is_logged_in);
 
-var_dump($todos);
+
+var_dump($all_todos);
 
 ?>
 
@@ -60,10 +72,14 @@ var_dump($todos);
             </b>
         </p>
 
-        <?php foreach ($todos as $todo) : ?>
+        <?php foreach ($user_todos as $todo) : ?>
             <p>
-                <a href="/todo-assignment/pages/show-task.php?id=<?= $todo->id ?>">
-                    <?= $todo ?>
+                <a href="/todo-assignment/pages/show-task.php?id=<?= $todo["id"] ?>">
+                    <b>
+                        <?= $todo["title"] ?>
+                    </b>
+
+                    to be done: <?= $todo["date"] ?>
                 </a>
             </p>
         <?php endforeach ?>
@@ -73,9 +89,6 @@ var_dump($todos);
         </form>
 
     <?php endif ?>
-
-
-
 </body>
 
 </html>

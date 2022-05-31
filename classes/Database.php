@@ -24,12 +24,12 @@ class Database
 
     public function add_task(Todo $todo)
     {
-        $query = "INSERT INTO todos (title, `date`) VALUES (?, ?)";
+        $query = "INSERT INTO todos (title, `date`, userId) VALUES (?, ?, ?)";
 
         $stmt = mysqli_prepare($this->conn, $query);
 
         //try to keep date as a string
-        $stmt->bind_param("ss", $todo->title, $todo->date);
+        $stmt->bind_param("ssi", $todo->title, $todo->date, $todo->user_id);
 
         $success = $stmt->execute();
 
@@ -54,8 +54,10 @@ class Database
 
             $id = $db_todo["id"];
 
+            $user_id = $db_todo["userId"];
+
             //need to add to the array so dont forget []
-            $todos[] = new Todo($title, $date, $id);
+            $todos[] = new Todo($title, $date, $user_id, $id);
         }
 
         return $todos;
@@ -78,7 +80,7 @@ class Database
         $todo = null;
 
         if ($db_todo) {
-            $todo = new Todo($db_todo["title"], $db_todo["date"], $id);
+            $todo = new Todo($db_todo["title"], $db_todo["date"], $db_todo["userId"], $id);
         }
 
         return $todo;
@@ -86,11 +88,11 @@ class Database
 
     public function update_todo(Todo $todo)
     {
-        $query = "UPDATE todos SET title = ?, `date` = ? WHERE id = ?";
+        $query = "UPDATE todos SET title = ?, `date` = ?, userId = ? WHERE id = ?";
 
         $stmt = mysqli_prepare($this->conn, $query);
 
-        $stmt->bind_param("ssi", $todo->title, $todo->date, $todo->id);
+        $stmt->bind_param("ssii", $todo->title, $todo->date, $todo->user_id, $todo->id);
 
         $success = $stmt->execute();
 
@@ -149,5 +151,23 @@ class Database
         }
 
         return $user;
+    }
+
+    public function get_tasks_by_user_id($user_id)
+    {
+        $query = "SELECT * FROM todos WHERE userId = ?";
+
+        $stmt = mysqli_prepare($this->conn, $query);
+
+        $stmt->bind_param("i", $user_id);
+
+        $stmt->execute();
+
+        $result = $stmt->get_result();
+
+        //fetch all todos for the user
+        $todos = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+        return $todos;
     }
 }

@@ -33,6 +33,7 @@ $todo = $db->get_task_by_id($id);
     <form action="/todo-assignment/scripts/post-edit-task.php" method="POST">
         <input type="text" name="title" placeholder="Edit task" value="<?= $todo->title ?>">
         <input type="date" name="date" placeholder="edit date" value="<?= $todo->date ?>">
+        <input type="hidden" name="userId" value="<?= $todo->user_id ?>">
         <input type="hidden" name="id" value="<?= $todo->id ?>">
         <input type="submit" value="Edit task">
     </form>
