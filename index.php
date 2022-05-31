@@ -12,8 +12,7 @@ $is_logged_in = (isset($_SESSION["logged_in"]) && $_SESSION["logged_in"]);
 
 $user = $_SESSION["user"];
 
-
-//changing todos to todos by userId
+//only run this function if $is_logged_in
 if ($is_logged_in) {
     $user_todos = $db->get_tasks_by_user_id($user->id);
     var_dump($user_todos);
@@ -22,9 +21,6 @@ if ($is_logged_in) {
 $all_todos = $db->get_tasks();
 
 var_dump($user);
-
-var_dump($is_logged_in);
-
 
 var_dump($all_todos);
 

@@ -12,6 +12,10 @@
 <body>
     <h1>Register User</h1>
 
+    <nav>
+        <a href="/todo-assignment">Home</a>
+    </nav>
+
     <form action="/todo-assignment/scripts/post-register-user.php" method="POST">
         <input type="text" name="username" placeholder="Enter a username">
         <input type="password" name="password" placeholder="Enter a password">
